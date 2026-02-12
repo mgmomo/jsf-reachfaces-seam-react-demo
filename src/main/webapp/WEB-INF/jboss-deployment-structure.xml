@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.0">
+    <deployment>
+        <!-- Exclude JBoss AS 7 built-in JSF 2.0 to use bundled JSF 1.2 -->
+        <exclusions>
+            <module name="javax.faces.api" slot="main"/>
+            <module name="com.sun.jsf-impl" slot="main"/>
+        </exclusions>
+        <dependencies>
+            <module name="org.javassist"/>
+            <module name="javax.transaction.api"/>
+            <module name="org.dom4j"/>
+            <module name="org.apache.commons.collections"/>
+            <module name="org.apache.commons.logging"/>
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>

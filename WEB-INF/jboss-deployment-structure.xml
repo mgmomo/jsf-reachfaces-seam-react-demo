@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.1">
+    <deployment>
+        <!-- Exclude JBoss AS 7's built-in JSF 2.0 module -->
+        <exclusions>
+            <module name="javax.faces.api" slot="main"/>
+            <module name="com.sun.jsf-impl" slot="main"/>
+            <module name="org.jboss.as.jsf" slot="main"/>
+            <!-- Exclude Weld JSF integration that conflicts with JSF 1.2 -->
+            <module name="org.jboss.as.weld" slot="main"/>
+            <module name="org.jboss.weld.core" slot="main"/>
+        </exclusions>
+
+        <dependencies>
+            <!-- Required server modules -->
+            <module name="javax.servlet.api"/>
+            <module name="javax.servlet.jsp.api"/>
+            <module name="org.apache.commons.logging"/>
+            <!-- Seam 2 requires these AS 7 modules -->
+            <module name="org.javassist"/>
+            <module name="javax.persistence.api"/>
+            <module name="javax.transaction.api"/>
+            <module name="javax.annotation.api"/>
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>

@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                template="/layout/template.xhtml">
+
+    <ui:define name="title">Wision4 - Person List</ui:define>
+
+    <ui:define name="content">
+        <h2>Person List</h2>
+
+        <ui:fragment rendered="#{userContext.canEdit}">
+        <p>
+            <s:link view="/personEdit.xhtml" value="Create New Person" propagation="none"
+                    style="font-weight:bold;"/>
+        </p>
+        </ui:fragment>
+
+        <h:form id="personListForm">
+            <h:panelGroup rendered="#{empty personListAction.persons}">
+                <p class="empty-message">No persons found.</p>
+            </h:panelGroup>
+
+            <rich:dataTable value="#{personListAction.persons}" var="person"
+                            rendered="#{not empty personListAction.persons}"
+                            styleClass="data-table"
+                            headerClass="table-header"
+                            rowClasses="odd,even"
+                            rows="20">
+
+                <rich:column>
+                    <f:facet name="header">ID</f:facet>
+                    #{person.id}
+                </rich:column>
+
+                <rich:column>
+                    <f:facet name="header">First Name</f:facet>
+                    #{person.firstName}
+                </rich:column>
+
+                <rich:column>
+                    <f:facet name="header">Last Name</f:facet>
+                    #{person.lastName}
+                </rich:column>
+
+                <rich:column>
+                    <f:facet name="header">Date of Birth</f:facet>
+                    <h:outputText value="#{person.dateOfBirth}">
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </h:outputText>
+                </rich:column>
+
+                <rich:column>
+                    <f:facet name="header">Locations</f:facet>
+                    #{person.locations.size()}
+                </rich:column>
+
+                <rich:column>
+                    <f:facet name="header">Actions</f:facet>
+                    <s:link view="/personEdit.xhtml" value="#{userContext.canEdit ? 'Edit' : 'View'}" propagation="none">
+                        <f:param name="personId" value="#{person.id}"/>
+                    </s:link>
+                    <ui:fragment rendered="#{userContext.canEdit}">
+                    &#160;
+                    <h:commandButton value="Delete" action="#{personListAction.deletePerson(person)}"
+                                     styleClass="btn btn-danger"
+                                     onclick="return confirm('Delete person #{person.fullName}?');"/>
+                    </ui:fragment>
+                </rich:column>
+
+            </rich:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
