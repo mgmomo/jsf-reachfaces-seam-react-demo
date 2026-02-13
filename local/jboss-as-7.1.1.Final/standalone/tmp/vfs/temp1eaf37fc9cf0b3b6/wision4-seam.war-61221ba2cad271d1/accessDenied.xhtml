@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                template="/layout/template.xhtml">
+
+    <ui:define name="title">Wision4 - Access Denied</ui:define>
+
+    <ui:define name="content">
+        <h2>Access Denied</h2>
+
+        <div class="form-panel">
+            <div class="form-title">Insufficient Permissions</div>
+            <p>You do not have permission to access this page.</p>
+            <p>
+                <strong>Username:</strong> #{userContext.username}<br/>
+                <strong>Role:</strong> #{userContext.roleLabel}
+            </p>
+            <p>Please contact an administrator if you believe this is an error.</p>
+            <p>
+                <s:link view="/home.xhtml" value="Return to Home" propagation="none"
+                        style="font-weight:bold;"/>
+            </p>
+        </div>
+    </ui:define>
+
+</ui:composition>

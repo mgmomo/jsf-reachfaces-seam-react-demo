@@ -95,9 +95,17 @@ public class DataService {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void deleteLocation(Long locationId) {
         Location location = em.find(Location.class, locationId);
         if (location != null) {
+            List<Person> persons = em.createQuery(
+                    "SELECT p FROM Person p JOIN p.locations l WHERE l.id = :locId")
+                    .setParameter("locId", locationId)
+                    .getResultList();
+            for (Person p : persons) {
+                p.getLocations().remove(location);
+            }
             em.remove(location);
         }
     }

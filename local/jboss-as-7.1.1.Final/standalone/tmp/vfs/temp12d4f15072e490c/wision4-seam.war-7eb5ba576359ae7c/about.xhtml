@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/layout/template.xhtml">
+
+    <ui:define name="title">Wision4 - About</ui:define>
+
+    <ui:define name="content">
+        <h2>About Wision4 Seam Demo</h2>
+
+        <div class="about-section">
+            <p>This application is a demonstration of a small legacy Java EE application.
+               It simulates a typical enterprise application from the JBoss Seam era,
+               using the component-based development model that was prevalent in the late 2000s.</p>
+
+            <div class="form-panel">
+                <div class="form-title">Technology Stack</div>
+                <dl>
+                    <dt>Application Server</dt>
+                    <dd>JBoss AS 7.1.1.Final</dd>
+
+                    <dt>Web Framework</dt>
+                    <dd>JBoss Seam 2.2.2.Final</dd>
+
+                    <dt>UI Component Library</dt>
+                    <dd>RichFaces 3.3.4.Final</dd>
+
+                    <dt>View Technology</dt>
+                    <dd>JavaServer Faces (JSF) 1.2 with Facelets</dd>
+
+                    <dt>Persistence</dt>
+                    <dd>JPA 2.0 with Hibernate 4 (provided by JBoss AS 7)</dd>
+
+                    <dt>Database</dt>
+                    <dd>H2 (embedded, in-memory)</dd>
+
+                    <dt>Build Tool</dt>
+                    <dd>Apache Maven</dd>
+                </dl>
+            </div>
+
+            <div class="form-panel">
+                <div class="form-title">Application Features</div>
+                <ul>
+                    <li><strong>Person Management</strong> &#8212; Create, edit, and delete persons with first name,
+                        last name, and date of birth.</li>
+                    <li><strong>Location Management</strong> &#8212; Create, edit, and delete locations with name,
+                        address, zip code, and active/not active status.</li>
+                    <li><strong>Person-Location Assignment</strong> &#8212; Assign one or more locations to a person
+                        using a many-to-many relationship.</li>
+                </ul>
+            </div>
+
+            <div class="form-panel">
+                <div class="form-title">Application Information</div>
+                <dl>
+                    <dt>Version</dt>
+                    <dd>1.0.0-SNAPSHOT</dd>
+
+                    <dt>Context Path</dt>
+                    <dd>#{facesContext.externalContext.requestContextPath}</dd>
+                </dl>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

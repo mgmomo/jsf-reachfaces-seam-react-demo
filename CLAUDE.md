@@ -10,27 +10,56 @@ Wision4-seam is a legacy demo application simulating a small enterprise Java EE 
 
 ## Build and Deploy
 
+### Quick Start (recommended)
+
 ```bash
+# Start JBoss AS 7.1.1 using the local environment
+./start-jboss.sh
+
+# In a separate terminal: build React frontend + Java WAR and deploy
+./build-deploy.sh
+```
+
+### Scripts
+
+- **`start-jboss.sh`** — Starts JBoss AS 7.1.1 using the local Java 7 and JBoss installation. Automatically stops any running instance, cleans stale deployment markers, and starts with port offset 100.
+- **`build-deploy.sh`** — Builds the React frontend (`npm run build`), builds the WAR (`mvn clean package`), copies it to the local JBoss deployments folder, and waits for deployment confirmation.
+
+### Manual Build and Deploy
+
+```bash
+# Build the React frontend
+cd frontend && npm run build && cd ..
+
 # Build the WAR (requires Maven 3.x; runs on Java 17 for compilation, targets Java 7 bytecode)
 mvn clean package
 
-# Deploy to JBoss AS 7.1.1 (copy WAR to deployments folder)
-cp target/wision4-seam.war $JBOSS_HOME/standalone/deployments/
-
-# Start JBoss AS 7 with port offset (avoids conflict with other instances)
-$JBOSS_HOME/bin/standalone.sh -b 0.0.0.0 -Djboss.socket.binding.port-offset=100
+# Deploy to local JBoss AS 7.1.1
+cp target/wision4-seam.war local/jboss-as-7.1.1.Final/standalone/deployments/
 ```
 
-The application is accessible at `http://localhost:8180/wision4-seam/home.seam` (port 8180 with offset 100).
+The application is accessible at:
+- **JSF app:** `http://localhost:8180/wision4-seam/home.seam`
+- **React app:** `http://localhost:8180/wision4-seam/app/`
 
 Uses the built-in H2 in-memory datasource (`java:jboss/datasources/ExampleDS`). Schema is auto-created on deploy (`hibernate.hbm2ddl.auto=create-drop`). Seed data loaded from `src/main/resources/import.sql`.
 
-### JBoss AS 7.1.1 Installation
+**Note:** JBoss AS 7.1.1 on Java 7 has limited PermGen space. After several hot-redeployments, PermGen may be exhausted causing deployment failures. Restart JBoss (`./start-jboss.sh`) to resolve.
 
-JBoss AS 7.1.1 is installed at `/home/gerald/jboss-as-7.1.1.Final/` with these patches applied:
+### Local Runtime Environment
+
+JBoss AS 7.1.1 and Zulu Java 7 are bundled in the `local/` directory:
+
+```
+local/
+  jboss-as-7.1.1.Final/    # JBoss AS 7.1.1 application server
+  zulu7.56.0.11-ca-jdk7.0.352-linux_x64/   # Zulu JDK 7 (runtime)
+```
+
+The local JBoss installation has these patches applied:
 - `jboss-modules.jar` replaced with 1.1.5.GA (fixes `__redirected.__SAXParserFactory` NPE on modern JVMs)
-- `standalone.conf` has JAXP workaround system properties and JAVA_HOME pointing to Zulu Java 7
-- Runs with port offset 100 to coexist with the wision3 instance on port 8080
+- `standalone.conf` has JAXP workaround system properties and `JAVA_HOME` pointing to the local Zulu Java 7
+- Runs with port offset 100 (port 8180) to coexist with other instances on port 8080
 
 ## Architecture
 
@@ -52,18 +81,31 @@ Two-layer architecture: **Seam POJO action components** (UI/conversation logic) 
 ### Source Layout
 
 ```
+start-jboss.sh              # Start local JBoss AS 7.1.1
+build-deploy.sh             # Build frontend + WAR and deploy
+
+frontend/                   # React SPA (Vite + React 19 + React Router)
+  src/
+    api/client.js           # API base client (base URL: /wision4-seam/api)
+    components/Layout.jsx   # App layout (hides chrome when embedded in JSF iframe)
+    pages/                  # Page components: HomePage, PersonListPage, LocationListPage, etc.
+  vite.config.js            # Vite config (base: /wision4-seam/app/, dev proxy)
+
 src/main/java/com/wision/demo/
   model/          # JPA entities: Person, Location, LocationState enum
   action/         # Seam POJO action components: PersonAction, LocationAction, *ListAction
   service/        # @Stateless EJB: DataService (all persistence operations)
+  rest/           # JAX-RS REST resources for the React frontend
 
 src/main/webapp/
   layout/template.xhtml    # Facelets master template (header, menu, footer)
   home.xhtml               # Landing page
   personEdit.xhtml         # Create/edit person with location assignment
   personList.xhtml         # Person list with rich:dataTable
+  personReact.xhtml        # Person list via embedded React iframe
   locationEdit.xhtml       # Create/edit location
   locationList.xhtml       # Location list with rich:dataTable
+  locationReact.xhtml      # Location list via embedded React iframe
   about.xhtml              # Application info page
   css/style.css            # All application styles
 
@@ -73,6 +115,10 @@ WEB-INF/
   faces-config.xml              # Facelets ViewHandler registration
   web.xml                       # Servlets, filters, RichFaces skin config
   jboss-deployment-structure.xml # Excludes JBoss AS 7 built-in JSF 2.0 modules
+
+local/                          # Local runtime environment (not in git)
+  jboss-as-7.1.1.Final/        # JBoss AS 7.1.1 application server
+  zulu7.56.0.11-ca-jdk7.0.352-linux_x64/  # Zulu JDK 7
 ```
 
 ### Entity Relationship

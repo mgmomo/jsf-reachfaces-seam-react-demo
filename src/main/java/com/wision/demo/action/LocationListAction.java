@@ -25,6 +25,7 @@ public class LocationListAction implements Serializable {
     private FacesMessages facesMessages;
 
     private List<Location> locations;
+    private Long deleteId;
 
     private DataService getDataService() {
         try {
@@ -45,7 +46,25 @@ public class LocationListAction implements Serializable {
         init();
     }
 
+    public void deleteLocationById() {
+        ((UserContext) Component.getInstance("userContext")).requireRole(UserRole.ADMIN);
+        getDataService().deleteLocation(deleteId);
+        facesMessages.add("Location deleted.");
+        init();
+    }
+
+    public Long getDeleteId() {
+        return deleteId;
+    }
+
+    public void setDeleteId(Long deleteId) {
+        this.deleteId = deleteId;
+    }
+
     public List<Location> getLocations() {
+        if (locations == null) {
+            init();
+        }
         return locations;
     }
 }

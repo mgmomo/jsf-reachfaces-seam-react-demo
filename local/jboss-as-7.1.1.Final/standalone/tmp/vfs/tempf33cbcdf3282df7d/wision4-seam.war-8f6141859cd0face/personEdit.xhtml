@@ -1,0 +1,142 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                template="/layout/template.xhtml">
+
+    <ui:define name="title">Wision4 - #{personAction.person.id == null ? (userContext.canEdit ? 'New Person' : 'Person') : (userContext.canEdit ? 'Edit Person' : 'View Person')}</ui:define>
+
+    <ui:define name="content">
+        <h2>#{personAction.person.id == null ? (userContext.canEdit ? 'Create Person' : 'Person') : (userContext.canEdit ? 'Edit Person' : 'View Person')}</h2>
+
+        <ui:fragment rendered="#{not userContext.canEdit}">
+            <p class="readonly-notice">You are viewing this record in read-only mode.</p>
+        </ui:fragment>
+
+        <h:form id="personForm">
+            <input type="hidden" name="cid" value="#{conversation.id}"/>
+
+            <!-- Person Details -->
+            <div class="form-panel">
+                <div class="form-title">Person Details</div>
+                <table class="form-table">
+                    <tr>
+                        <td class="label-col">
+                            <h:outputLabel for="firstName" value="First Name"/>
+                            <ui:fragment rendered="#{userContext.canEdit}">
+                                <span class="required-marker">*</span>
+                            </ui:fragment>
+                        </td>
+                        <td class="field-col">
+                            <h:inputText id="firstName" value="#{personAction.person.firstName}"
+                                         required="true" requiredMessage="First name is required."
+                                         maxlength="100" disabled="#{not userContext.canEdit}"/>
+                            <h:message for="firstName" styleClass="error-message"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">
+                            <h:outputLabel for="lastName" value="Last Name"/>
+                            <ui:fragment rendered="#{userContext.canEdit}">
+                                <span class="required-marker">*</span>
+                            </ui:fragment>
+                        </td>
+                        <td class="field-col">
+                            <h:inputText id="lastName" value="#{personAction.person.lastName}"
+                                         required="true" requiredMessage="Last name is required."
+                                         maxlength="100" disabled="#{not userContext.canEdit}"/>
+                            <h:message for="lastName" styleClass="error-message"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">
+                            <h:outputLabel for="dateOfBirth" value="Date of Birth"/>
+                        </td>
+                        <td class="field-col">
+                            <rich:calendar id="dateOfBirth"
+                                           value="#{personAction.person.dateOfBirth}"
+                                           datePattern="yyyy-MM-dd"
+                                           enableManualInput="true"
+                                           showApplyButton="true"
+                                           cellWidth="28px"
+                                           cellHeight="22px"
+                                           style="width:200px;"
+                                           disabled="#{not userContext.canEdit}"/>
+                            <h:message for="dateOfBirth" styleClass="error-message"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Assigned Locations -->
+            <div class="location-section">
+                <div class="section-title">Assigned Locations</div>
+
+                <ui:fragment rendered="#{userContext.canEdit}">
+                <div class="add-location-bar">
+                    <h:outputLabel value="Add location: " style="font-weight:bold;"/>
+                    <h:selectOneMenu id="locationSelect"
+                                     value="#{personAction.selectedLocationId}">
+                        <f:selectItem itemLabel="-- Select a location --" itemValue=""/>
+                        <f:selectItems value="#{personAction.availableLocationItems}"/>
+                    </h:selectOneMenu>
+                    <a4j:commandButton value="Add" action="#{personAction.addLocation}"
+                                       reRender="locationSelect,assignedLocationsPanel"
+                                       styleClass="btn btn-small"/>
+                </div>
+                </ui:fragment>
+
+                <a4j:outputPanel id="assignedLocationsPanel">
+                    <h:panelGroup rendered="#{empty personAction.person.locations}">
+                        <p class="empty-message">No locations assigned yet.</p>
+                    </h:panelGroup>
+
+                    <h:dataTable value="#{personAction.person.locations}" var="loc"
+                                 rendered="#{not empty personAction.person.locations}"
+                                 styleClass="assigned-table"
+                                 headerClass="table-header"
+                                 rowClasses="odd,even">
+                        <h:column>
+                            <f:facet name="header">Location Name</f:facet>
+                            #{loc.locationName}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Address</f:facet>
+                            #{loc.address}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Zip Code</f:facet>
+                            #{loc.zipCode}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Status</f:facet>
+                            #{loc.state.label}
+                        </h:column>
+                        <h:column rendered="#{userContext.canEdit}">
+                            <f:facet name="header">Action</f:facet>
+                            <a4j:commandButton value="Remove"
+                                               action="#{personAction.removeLocation(loc)}"
+                                               reRender="locationSelect,assignedLocationsPanel"
+                                               styleClass="btn btn-danger"/>
+                        </h:column>
+                    </h:dataTable>
+                </a4j:outputPanel>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-bar">
+                <h:commandButton value="#{userContext.canEdit ? 'Cancel' : 'Back'}" action="#{personAction.cancel}"
+                                 immediate="true" styleClass="btn btn-cancel"/>
+                <ui:fragment rendered="#{userContext.canEdit}">
+                    <h:commandButton value="Save" action="#{personAction.save}"
+                                     styleClass="btn btn-primary"/>
+                </ui:fragment>
+            </div>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

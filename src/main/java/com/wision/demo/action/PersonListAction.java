@@ -25,6 +25,7 @@ public class PersonListAction implements Serializable {
     private FacesMessages facesMessages;
 
     private List<Person> persons;
+    private Long deleteId;
 
     private DataService getDataService() {
         try {
@@ -45,7 +46,25 @@ public class PersonListAction implements Serializable {
         init();
     }
 
+    public void deletePersonById() {
+        ((UserContext) Component.getInstance("userContext")).requireRole(UserRole.ADMIN);
+        getDataService().deletePerson(deleteId);
+        facesMessages.add("Person deleted.");
+        init();
+    }
+
+    public Long getDeleteId() {
+        return deleteId;
+    }
+
+    public void setDeleteId(Long deleteId) {
+        this.deleteId = deleteId;
+    }
+
     public List<Person> getPersons() {
+        if (persons == null) {
+            init();
+        }
         return persons;
     }
 }

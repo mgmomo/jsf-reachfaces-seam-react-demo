@@ -6,7 +6,9 @@
       "Bash(mvn clean package:*)",
       "Bash(export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64:*)",
       "Bash(curl:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(pkill:*)",
+      "Bash(pgrep:*)"
     ]
   }
 }
