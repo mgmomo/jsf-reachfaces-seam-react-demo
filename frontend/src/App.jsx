@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import HomePage from './pages/HomePage';
+import DashboardPage from './pages/DashboardPage';
 import PersonListPage from './pages/PersonListPage';
 import PersonEditPage from './pages/PersonEditPage';
 import LocationListPage from './pages/LocationListPage';
@@ -14,6 +15,14 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute requiredRole="USER">
+              <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/access-denied" element={<AccessDeniedPage />} />
         <Route

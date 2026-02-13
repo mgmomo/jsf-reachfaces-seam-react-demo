@@ -35,6 +35,11 @@
                 <li>
                     <s:link view="/home.xhtml" value="Home" propagation="none"/>
                 </li>
+                <ui:fragment rendered="#{userContext.canView}">
+                <li>
+                    <s:link view="/dashboardReact.xhtml" value="Dashboard" propagation="none"/>
+                </li>
+                </ui:fragment>
                 <ui:fragment rendered="#{userContext.canEdit}">
                 <li>
                     <s:link view="/personEdit.xhtml" value="New Person" propagation="none"/>

@@ -109,4 +109,47 @@ public class DataService {
             em.remove(location);
         }
     }
+
+    // Dashboard operations
+
+    public long countPersons() {
+        return (Long) em.createQuery("SELECT COUNT(p) FROM Person p").getSingleResult();
+    }
+
+    public long countLocations() {
+        return (Long) em.createQuery("SELECT COUNT(l) FROM Location l").getSingleResult();
+    }
+
+    public long countActiveLocations() {
+        return (Long) em.createQuery("SELECT COUNT(l) FROM Location l WHERE l.state = :state")
+                .setParameter("state", LocationState.ACTIVE)
+                .getSingleResult();
+    }
+
+    public long countPersonsWithNoLocations() {
+        return (Long) em.createQuery("SELECT COUNT(p) FROM Person p WHERE p.locations IS EMPTY")
+                .getSingleResult();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Person> findRecentPersons(int limit) {
+        return em.createQuery("SELECT DISTINCT p FROM Person p LEFT JOIN FETCH p.locations ORDER BY p.id DESC")
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Location> findRecentLocations(int limit) {
+        return em.createQuery("SELECT l FROM Location l ORDER BY l.id DESC")
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Object[]> findLocationPersonCounts() {
+        return em.createQuery(
+                "SELECT l.locationName, COUNT(p) FROM Person p JOIN p.locations l GROUP BY l.id, l.locationName ORDER BY COUNT(p) DESC")
+                .setMaxResults(10)
+                .getResultList();
+    }
 }

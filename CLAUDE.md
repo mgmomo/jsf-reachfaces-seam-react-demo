@@ -87,15 +87,16 @@ build-deploy.sh             # Build frontend + WAR and deploy
 frontend/                   # React SPA (Vite + React 19 + React Router)
   src/
     api/client.js           # API base client (base URL: /vision4-seam/api)
+    api/dashboardApi.js     # Dashboard API (fetches aggregated stats)
     components/Layout.jsx   # App layout (hides chrome when embedded in JSF iframe)
-    pages/                  # Page components: HomePage, PersonListPage, LocationListPage, etc.
+    pages/                  # Page components: HomePage, DashboardPage, PersonListPage, LocationListPage, etc.
   vite.config.js            # Vite config (base: /vision4-seam/app/, dev proxy)
 
 src/main/java/com/vision/demo/
   model/          # JPA entities: Person, Location, LocationState enum
   action/         # Seam POJO action components: PersonAction, LocationAction, *ListAction
   service/        # @Stateless EJB: DataService (all persistence operations)
-  rest/           # JAX-RS REST resources for the React frontend
+  rest/           # JAX-RS REST resources: PersonResource, LocationResource, DashboardResource, AuthResource
 
 src/main/webapp/
   layout/template.xhtml    # Facelets master template (header, menu, footer)
@@ -106,6 +107,7 @@ src/main/webapp/
   locationEdit.xhtml       # Create/edit location
   locationList.xhtml       # Location list with rich:dataTable
   locationReact.xhtml      # Location list via embedded React iframe
+  dashboardReact.xhtml     # Dashboard via embedded React iframe
   about.xhtml              # Application info page
   css/style.css            # All application styles
 

@@ -22,6 +22,7 @@ A demo application showing a legacy Java EE stack (JBoss Seam 2, RichFaces 3, JS
 - **Person Management** -- Create, edit, delete persons with first name, last name, and date of birth
 - **Location Management** -- Create, edit, delete locations with name, address, zip code, and active/inactive status
 - **Person-Location Assignment** -- Many-to-many relationship between persons and locations
+- **Dashboard** -- Summary statistics, recent items, and charts (pie chart for location status, bar chart for top locations by person count)
 - **Dual UI** -- Every feature available in both the JSF/RichFaces UI and the React SPA
 - **Integrated Navigation** -- JSF menu links to embedded React pages (via iframe); React nav links back to JSF app
 - **Header-Based Auth** -- Role simulation via `X-Remote-User` / `X-Remote-Roles` HTTP headers (ADMIN, USER, GUEST)
@@ -84,6 +85,7 @@ src/main/webapp/
   *.xhtml                # JSF pages
   personReact.xhtml      # Embedded React persons (iframe)
   locationReact.xhtml    # Embedded React locations (iframe)
+  dashboardReact.xhtml   # Embedded React dashboard (iframe)
   css/style.css
 
 local/                   # Runtime environment (not in git)
@@ -93,7 +95,7 @@ local/                   # Runtime environment (not in git)
 
 The application demonstrates integrating a React SPA into an existing legacy Java EE application:
 
-1. **React pages embedded in JSF** -- JSF wrapper pages (`personReact.xhtml`, `locationReact.xhtml`) use the Facelets template and embed the React app via iframe. The React `Layout` component detects iframe embedding and hides its own chrome.
+1. **React pages embedded in JSF** -- JSF wrapper pages (`personReact.xhtml`, `locationReact.xhtml`, `dashboardReact.xhtml`) use the Facelets template and embed the React app via iframe. The React `Layout` component detects iframe embedding and hides its own chrome. Embedded dashboard links navigate the parent frame to JSF pages rather than React routes.
 2. **Shared REST API** -- JAX-RS endpoints under `/api/` serve both the React frontend and can be used independently.
 3. **Bundled in one WAR** -- The React build output (`frontend/dist/`) is included in the WAR under `/app/` via Maven's `webResources` configuration.
 4. **HashRouter** -- React uses `HashRouter` so all routes are hash fragments. JBoss only needs to serve the static `index.html`.

@@ -14,6 +14,7 @@ public class RestApplication extends Application {
         classes.add(PersonResource.class);
         classes.add(LocationResource.class);
         classes.add(AuthResource.class);
+        classes.add(DashboardResource.class);
         classes.add(RestExceptionMapper.class);
         classes.add(JacksonConfig.class);
         return classes;
