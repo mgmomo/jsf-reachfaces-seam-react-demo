@@ -56,7 +56,7 @@ export default function Layout() {
         <nav className="app-nav">
           <Link to="/">Home</Link>
           <Link to="/dashboard">Dashboard</Link>
-          <Link to="/persons">Persons</Link>
+          <Link to="/persons">People</Link>
           <Link to="/locations">Locations</Link>
           <a href="/vision4-seam/home.seam">Vision</a>
           <Link to="/about">About</Link>

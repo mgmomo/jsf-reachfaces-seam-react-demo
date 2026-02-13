@@ -34,7 +34,7 @@ export default function AboutPage() {
       <div className="info-box" style={{ marginTop: '1rem' }}>
         <h3>Application Features</h3>
         <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
-          <li><strong>Person Management</strong> — Create, edit, and delete persons with first name, last name, and date of birth.</li>
+          <li><strong>Person Management</strong> — Create, edit, and delete people with first name, last name, and date of birth.</li>
           <li><strong>Location Management</strong> — Create, edit, and delete locations with name, address, zip code, and active/not active status.</li>
           <li><strong>Person-Location Assignment</strong> — Assign one or more locations to a person using a many-to-many relationship.</li>
         </ul>

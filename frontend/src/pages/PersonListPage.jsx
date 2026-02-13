@@ -36,7 +36,7 @@ export default function PersonListPage() {
   return (
     <div>
       <div className="page-header">
-        <h2>Persons</h2>
+        <h2>People</h2>
         {isAdmin && (
           <Link to="/persons/new" className="btn">Add Person</Link>
         )}
@@ -72,7 +72,7 @@ export default function PersonListPage() {
             </tr>
           ))}
           {persons.length === 0 && (
-            <tr><td colSpan={isAdmin ? 6 : 5} className="empty">No persons found.</td></tr>
+            <tr><td colSpan={isAdmin ? 6 : 5} className="empty">No people found.</td></tr>
           )}
         </tbody>
       </table>

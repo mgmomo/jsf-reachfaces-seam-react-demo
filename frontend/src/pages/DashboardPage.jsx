@@ -127,7 +127,7 @@ export default function DashboardPage() {
       <div className="dashboard-cards">
         <div className="dash-card">
           <div className="dash-card-value">{data.totalPersons}</div>
-          <div className="dash-card-label">Total Persons</div>
+          <div className="dash-card-label">Total People</div>
         </div>
         <div className="dash-card">
           <div className="dash-card-value">{data.totalLocations}</div>
@@ -143,7 +143,7 @@ export default function DashboardPage() {
         </div>
         <div className="dash-card">
           <div className="dash-card-value">{data.personsWithNoLocations}</div>
-          <div className="dash-card-label">Unassigned Persons</div>
+          <div className="dash-card-label">Unassigned People</div>
         </div>
         <div className="dash-card">
           <div className="dash-card-value">{data.avgLocationsPerPerson}</div>
@@ -155,9 +155,9 @@ export default function DashboardPage() {
         <h3>Recent Items</h3>
         <div className="dashboard-recent">
           <div className="recent-panel">
-            <h4>Recent Persons</h4>
+            <h4>Recent People</h4>
             {data.recentPersons.length === 0 ? (
-              <p className="muted">No persons yet</p>
+              <p className="muted">No people yet</p>
             ) : (
               <table className="data-table">
                 <thead>

@@ -17,7 +17,7 @@ export default function HomePage() {
             {isAdmin
               ? 'Full access (view, create, edit, delete)'
               : isUser
-              ? 'Read-only access (view persons and locations)'
+              ? 'Read-only access (view people and locations)'
               : 'No data access (switch role using the header controls)'}
           </p>
         </div>
