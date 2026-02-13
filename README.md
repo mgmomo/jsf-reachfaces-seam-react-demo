@@ -56,8 +56,8 @@ local/
 
 ### Access
 
-- **JSF app:** http://localhost:8180/wision4-seam/home.seam
-- **React app:** http://localhost:8180/wision4-seam/app/
+- **JSF app:** http://localhost:8180/vision4-seam/home.seam
+- **React app:** http://localhost:8180/vision4-seam/app/
 
 ## Project Structure
 
@@ -73,7 +73,7 @@ frontend/                # React SPA (Vite + React 19)
     context/             # Auth context
   vite.config.js
 
-src/main/java/com/wision/demo/
+src/main/java/com/vision/demo/
   model/                 # JPA entities: Person, Location
   action/                # Seam POJO action components
   service/               # @Stateless EJB: DataService

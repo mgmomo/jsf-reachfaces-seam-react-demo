@@ -1,6 +1,6 @@
 #!/bin/bash
 # Start JBoss AS 7.1.1 with the local Java 7 environment
-# Port offset 100: application available at http://localhost:8180/wision4-seam/
+# Port offset 100: application available at http://localhost:8180/vision4-seam/
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JBOSS_HOME="$SCRIPT_DIR/local/jboss-as-7.1.1.Final"
@@ -25,7 +25,7 @@ rm -f "$JBOSS_HOME/standalone/deployments/"*.isdeploying
 
 echo "Starting JBoss AS 7.1.1 (port offset 100)..."
 echo "  JBOSS_HOME: $JBOSS_HOME"
-echo "  URL: http://localhost:8180/wision4-seam/"
+echo "  URL: http://localhost:8180/vision4-seam/"
 echo ""
 
 exec "$JBOSS_HOME/bin/standalone.sh" -b 0.0.0.0 -Djboss.socket.binding.port-offset=100

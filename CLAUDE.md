@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Wision4-seam is a legacy demo application simulating a small enterprise Java EE system. It manages persons and locations with a many-to-many relationship between them.
+Vision4-seam is a legacy demo application simulating a small enterprise Java EE system. It manages persons and locations with a many-to-many relationship between them.
 
 **Stack:** JBoss Seam 2.2.2.Final, RichFaces 3.3.4.Final, JSF 1.2 (Facelets 1.1), JPA 2.0, Hibernate 3.3.0.SP1 (bundled), deployed on JBoss AS 7.1.1.
 
@@ -35,12 +35,12 @@ cd frontend && npm run build && cd ..
 mvn clean package
 
 # Deploy to local JBoss AS 7.1.1
-cp target/wision4-seam.war local/jboss-as-7.1.1.Final/standalone/deployments/
+cp target/vision4-seam.war local/jboss-as-7.1.1.Final/standalone/deployments/
 ```
 
 The application is accessible at:
-- **JSF app:** `http://localhost:8180/wision4-seam/home.seam`
-- **React app:** `http://localhost:8180/wision4-seam/app/`
+- **JSF app:** `http://localhost:8180/vision4-seam/home.seam`
+- **React app:** `http://localhost:8180/vision4-seam/app/`
 
 Uses the built-in H2 in-memory datasource (`java:jboss/datasources/ExampleDS`). Schema is auto-created on deploy (`hibernate.hbm2ddl.auto=create-drop`). Seed data loaded from `src/main/resources/import.sql`.
 
@@ -86,12 +86,12 @@ build-deploy.sh             # Build frontend + WAR and deploy
 
 frontend/                   # React SPA (Vite + React 19 + React Router)
   src/
-    api/client.js           # API base client (base URL: /wision4-seam/api)
+    api/client.js           # API base client (base URL: /vision4-seam/api)
     components/Layout.jsx   # App layout (hides chrome when embedded in JSF iframe)
     pages/                  # Page components: HomePage, PersonListPage, LocationListPage, etc.
-  vite.config.js            # Vite config (base: /wision4-seam/app/, dev proxy)
+  vite.config.js            # Vite config (base: /vision4-seam/app/, dev proxy)
 
-src/main/java/com/wision/demo/
+src/main/java/com/vision/demo/
   model/          # JPA entities: Person, Location, LocationState enum
   action/         # Seam POJO action components: PersonAction, LocationAction, *ListAction
   service/        # @Stateless EJB: DataService (all persistence operations)

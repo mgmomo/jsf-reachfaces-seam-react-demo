@@ -1,7 +1,7 @@
 export default function AboutPage() {
   return (
     <div>
-      <h2>About Wision4 Seam Demo</h2>
+      <h2>About Vision4 Seam Demo</h2>
 
       <p>
         This application is a demonstration of a small legacy Java EE application.

@@ -30,7 +30,7 @@ export default function Layout() {
     <div className="app">
       <header className="app-header">
         <div className="header-top">
-          <h1 className="app-title">Wision4 React</h1>
+          <h1 className="app-title">Vision4 React</h1>
           <div className="role-switcher">
             <input
               type="text"
@@ -57,7 +57,7 @@ export default function Layout() {
           <Link to="/">Home</Link>
           <Link to="/persons">Persons</Link>
           <Link to="/locations">Locations</Link>
-          <a href="/wision4-seam/home.seam">WiSion</a>
+          <a href="/vision4-seam/home.seam">Vision</a>
           <Link to="/about">About</Link>
         </nav>
       </header>
@@ -67,7 +67,7 @@ export default function Layout() {
       </main>
 
       <footer className="app-footer">
-        Wision4 Demo &mdash; Seam 2 + React
+        Vision4 Demo &mdash; Seam 2 + React
       </footer>
     </div>
   );

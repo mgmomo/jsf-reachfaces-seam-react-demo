@@ -17,16 +17,16 @@ mvn clean package -q
 
 echo ""
 echo "=== Deploying to JBoss ==="
-cp "$PROJECT_DIR/target/wision4-seam.war" "$JBOSS_HOME/standalone/deployments/"
+cp "$PROJECT_DIR/target/vision4-seam.war" "$JBOSS_HOME/standalone/deployments/"
 
 echo ""
 echo "Waiting for deployment..."
 for i in $(seq 1 30); do
-    if [ -f "$JBOSS_HOME/standalone/deployments/wision4-seam.war.deployed" ]; then
+    if [ -f "$JBOSS_HOME/standalone/deployments/vision4-seam.war.deployed" ]; then
         echo "Deployed successfully."
         exit 0
     fi
-    if [ -f "$JBOSS_HOME/standalone/deployments/wision4-seam.war.failed" ]; then
+    if [ -f "$JBOSS_HOME/standalone/deployments/vision4-seam.war.failed" ]; then
         echo "ERROR: Deployment failed. Check server log:"
         echo "  $JBOSS_HOME/standalone/log/server.log"
         exit 1

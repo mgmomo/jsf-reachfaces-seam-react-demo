@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                template="/layout/template.xhtml">
+
+    <ui:define name="title">Wision4 - Location List</ui:define>
+
+    <ui:define name="content">
+        <h2>Location List</h2>
+
+        <ui:fragment rendered="#{userContext.canEdit}">
+        <p>
+            <s:link view="/locationEdit.xhtml" value="Create New Location" propagation="none"
+                    style="font-weight:bold;"/>
+        </p>
+        </ui:fragment>
+
+        <h:form id="locationListForm">
+            <h:panelGroup rendered="#{empty locationListAction.locations}">
+                <p class="empty-message">No locations found.</p>
+            </h:panelGroup>
+
+            <rich:dataTable value="#{locationListAction.locations}" var="loc"
+                            rendered="#{not empty locationListAction.locations}"
+                            styleClass="data-table"
+                            headerClass="table-header"
+                            rowClasses="odd,even"
+                            rows="20">
+
+                <rich:column>
+                    <f:facet name="header">ID</f:facet>
+                    #{loc.id}
+                </rich:column>
+
+                <rich:column>
+                    <f:facet name="header">Location Name</f:facet>
+                    #{loc.locationName}
+                </rich:column>
+
+                <rich:column>
+                    <f:facet name="header">Address</f:facet>
+                    #{loc.address}
+                </rich:column>
+
+                <rich:column>
+                    <f:facet name="header">Zip Code</f:facet>
+                    #{loc.zipCode}
+                </rich:column>
+
+                <rich:column>
+                    <f:facet name="header">State</f:facet>
+                    <h:outputText value="#{loc.state.label}"
+                                  styleClass="#{loc.state == 'ACTIVE' ? 'status-active' : 'status-inactive'}"/>
+                </rich:column>
+
+                <rich:column>
+                    <f:facet name="header">Actions</f:facet>
+                    <s:link view="/locationEdit.xhtml" value="#{userContext.canEdit ? 'Edit' : 'View'}" propagation="none">
+                        <f:param name="locationId" value="#{loc.id}"/>
+                    </s:link>
+                    <ui:fragment rendered="#{userContext.canEdit}">
+                    &#160;
+                    <a4j:commandButton value="Delete" action="#{locationListAction.deleteLocationById}"
+                                       reRender="locationListForm"
+                                       styleClass="btn btn-danger"
+                                       onclick="if(!confirm('Delete location?')) return false;">
+                        <f:setPropertyActionListener target="#{locationListAction.deleteId}" value="#{loc.id}"/>
+                    </a4j:commandButton>
+                    </ui:fragment>
+                </rich:column>
+
+            </rich:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

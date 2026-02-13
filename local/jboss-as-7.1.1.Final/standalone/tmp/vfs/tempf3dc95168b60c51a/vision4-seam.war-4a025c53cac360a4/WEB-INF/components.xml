@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components xmlns="http://jboss.com/products/seam/components"
+            xmlns:core="http://jboss.com/products/seam/core"
+            xmlns:transaction="http://jboss.com/products/seam/transaction"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="
+                http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.2.xsd
+                http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.2.xsd
+                http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.2.xsd">
+
+    <core:init jndi-pattern="java:module/#{ejbName}" debug="true"/>
+
+    <core:manager conversation-timeout="120000"
+                  concurrent-request-timeout="500"
+                  conversation-id-parameter="cid"/>
+
+    <transaction:ejb-transaction/>
+
+</components>

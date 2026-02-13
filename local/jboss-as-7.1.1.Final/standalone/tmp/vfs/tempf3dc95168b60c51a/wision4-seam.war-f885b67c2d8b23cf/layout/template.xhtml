@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:s="http://jboss.com/products/seam/taglib"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+<f:view>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title><ui:insert name="title">Wision4 Seam Demo</ui:insert></title>
+    <link rel="stylesheet" type="text/css"
+          href="#{facesContext.externalContext.requestContextPath}/css/style.css" />
+</head>
+
+<body>
+    <div id="wrapper">
+
+        <!-- Header -->
+        <div id="header">
+            <h1>Wision4 Seam Demo</h1>
+            <p>Legacy Application Simulation</p>
+            <div class="user-info">
+                <span class="username">#{userContext.username}</span>
+                <span class="role-badge role-#{userContext.roleLabel == 'ADMIN' ? 'admin' : (userContext.roleLabel == 'USER' ? 'user' : 'guest')}">#{userContext.roleLabel}</span>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div id="menu">
+            <ul>
+                <li>
+                    <s:link view="/home.xhtml" value="Home" propagation="none"/>
+                </li>
+                <ui:fragment rendered="#{userContext.canEdit}">
+                <li>
+                    <s:link view="/personEdit.xhtml" value="New Person" propagation="none"/>
+                </li>
+                </ui:fragment>
+                <ui:fragment rendered="#{userContext.canView}">
+                <li>
+                    <s:link view="/personList.xhtml" value="Persons" propagation="none"/>
+                </li>
+                <li>
+                    <s:link view="/personReact.xhtml" value="Persons (React)" propagation="none"/>
+                </li>
+                </ui:fragment>
+                <ui:fragment rendered="#{userContext.canEdit}">
+                <li>
+                    <s:link view="/locationEdit.xhtml" value="New Location" propagation="none"/>
+                </li>
+                </ui:fragment>
+                <ui:fragment rendered="#{userContext.canView}">
+                <li>
+                    <s:link view="/locationList.xhtml" value="Locations" propagation="none"/>
+                </li>
+                <li>
+                    <s:link view="/locationReact.xhtml" value="Locations (React)" propagation="none"/>
+                </li>
+                </ui:fragment>
+                <li>
+                    <a href="#{facesContext.externalContext.requestContextPath}/app/">WiSion&#178;</a>
+                </li>
+                <li>
+                    <s:link view="/about.xhtml" value="About" propagation="none"/>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Content -->
+        <div id="content">
+            <!-- Global Messages -->
+            <h:messages globalOnly="true" styleClass="messages"
+                        infoClass="info-message" errorClass="error-message"
+                        warnClass="error-message" layout="table"/>
+
+            <ui:insert name="content">
+                <p>No content defined.</p>
+            </ui:insert>
+        </div>
+
+        <!-- Footer -->
+        <div id="footer">
+            <p>Wision4 Seam Demo Application &#169; 2024 | JBoss Seam 2.2.2 | RichFaces 3.3.4 | JSF 1.2</p>
+        </div>
+
+    </div>
+</body>
+</f:view>
+
+</html>

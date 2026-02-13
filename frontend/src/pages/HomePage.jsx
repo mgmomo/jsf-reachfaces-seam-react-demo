@@ -5,8 +5,8 @@ export default function HomePage() {
 
   return (
     <div>
-      <h2>Welcome to Wision4</h2>
-      <p>This is the React frontend for the Wision4-Seam demo application.</p>
+      <h2>Welcome to Vision4</h2>
+      <p>This is the React frontend for the Vision4-Seam demo application.</p>
 
       {user && (
         <div className="info-box">

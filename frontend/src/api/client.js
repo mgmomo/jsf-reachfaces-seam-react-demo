@@ -1,4 +1,4 @@
-const BASE = '/wision4-seam/api';
+const BASE = '/vision4-seam/api';
 
 export async function apiRequest(path, options = {}) {
   const headers = { ...options.headers };
