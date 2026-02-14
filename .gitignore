@@ -9,3 +9,14 @@ target/
 .project
 .classpath
 .vscode/
+
+# JBoss AS 7 runtime-generated files
+local/jboss-as-7.1.1.Final/standalone/tmp/
+local/jboss-as-7.1.1.Final/standalone/data/
+local/jboss-as-7.1.1.Final/standalone/log/
+local/jboss-as-7.1.1.Final/standalone/deployments/
+local/jboss-as-7.1.1.Final/standalone/configuration/standalone_xml_history/
+
+# React frontend build output (rebuilt by build-deploy.sh)
+frontend/dist/
+frontend/node_modules/
