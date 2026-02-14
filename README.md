@@ -9,7 +9,7 @@ A demo application showing a legacy Java EE stack (JBoss Seam 2, RichFaces 3, JS
 - JBoss Seam 2.2.2.Final
 - RichFaces 3.3.4.Final
 - JSF 1.2 (Facelets 1.1)
-- JPA 2.0 / Hibernate
+- JPA 2.0 / Hibernate 3.3.0.SP1
 - H2 in-memory database
 
 **Modern (React):**
